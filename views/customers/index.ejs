@@ -1,0 +1,68 @@
+<!-- include header -->
+<%- include('../include/_header') %>
+<!-- /include header -->
+
+<body>
+  <div class="container">
+    <h1 class="mb-4">Customers</h1>
+    <a href="/customers/new" class="btn btn-success">New Customer</a>
+    <form action="/customers" method="GET">
+      <legend>Status</legend>
+      <input type="checkbox" name="status" value="Przyjeto">
+      <label for="Przyjeto">Przyjeto</label>
+  
+      <input type="checkbox" name="status" value="W realizacji">
+      <label for="W realizacji">W realizacji</label>
+  
+      <input type="checkbox" name="status" value="Zrealizowano">
+      <label for="Zrealizowano">Zrealizowano</label>
+
+      <legend>Date</legend>
+      <input type="radio" name="date" value="asc" >
+      <label for="ASC">ASC</label>
+
+      <input type="radio" name="date" value="desc">
+      <label for="DESC">DESC</label>
+    
+      <legend>Search:</legend>
+      <input type="text" name="search" placeholder="search">
+
+      <button type="submit">Filter</button>
+    </form>
+
+    <!--
+    <form action="/customers/sorted">
+      <input type="text" name="search" placeholder="search customers" required>
+      <input type="submit" value="Search">
+    </form>
+    -->
+
+
+    <% const options = {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} %>
+
+    <% customers.forEach(customer => { %>
+      <div class="card mt-4">
+        <div class="card-body">
+          <h4 class="card-title"><%= customer.firstName + " " + customer.lastName %></h4>
+          <div class="card-subtitle text-muted mb-2">
+            <%= "Date: " + customer.createdAt.toLocaleDateString(undefined, options) %>
+          </div>
+          <h6 class="card-title"><%= "Phone Number: " + customer.phoneNumber %></h6>
+          <h6 class="card-title"><%= "Email: " + customer.email %></h6>
+          <h6 class="card-title"><%= "Status: " + customer.status %></h6>
+
+          <div class="card-text mb-2"><%= customer.description %></div>
+          <a href="/customers/<%= customer.id %>" class="btn btn-primary">Read More</a>
+          <a href="/customers/edit/<%= customer.id %>" class="btn btn-info">Edit</a>
+          <form action="/customers/<%= customer.id %>?_method=DELETE" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+
+<!-- include footer -->
+<%- include('../include/_footer') %>
+<!-- /include footer -->

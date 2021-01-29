@@ -1,0 +1,32 @@
+<!-- include header -->
+<%- include('../include/_header') %>
+<!-- /include header -->
+
+<body>
+  <div class="container">
+    <h1 class="mb-4">All TVs</h1>
+    <a href="/tvs/new" class="btn btn-success">New TV</a>
+    <% const options = {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} %>
+
+    <% tvs.forEach(tv => { %>
+      <div class="card mt-4">
+        <div class="card-body">
+          <h4 class="card-title"><%= tv.brandName + " " + tv.model + " " + tv.inch %></h4>
+          <div class="card-subtitle text-muted mb-2">
+            <%= tv.createdAt.toLocaleDateString(undefined, options) %>
+          </div>
+          <h6 class="card-title"><%= "Status: " + tv.status %></h6>
+          <div class="card-text mb-2"><%= tv.description %></div>
+          <a href="tvs/edit/<%= tv.id %>" class="btn btn-info">Edit</a>
+          <form action="/tvs/<%= tv.id %>?_method=DELETE" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+
+<!-- include footer -->
+<%- include('../include/_footer') %>
+<!-- /include footer -->

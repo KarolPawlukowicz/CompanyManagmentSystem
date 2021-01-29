@@ -1,0 +1,19 @@
+<!-- include header -->
+<%- include('../include/_header') %>
+<!-- /include header -->
+
+<body>
+  <div class="container">
+    <h1 class="mb-1"><%= customer.firstName %></h1>
+    <div class="text-muted mb-2">
+      <%= customer.createdAt.toLocaleDateString() %>
+    </div>
+    <a href="/customers" class="btn btn-secondary">All customers</a>
+    <a href="/customers/edit/<%= customer.id %>" class="btn btn-info">Edit</a>
+
+    <div>
+      <%- customer.sanitizedHtml %>
+    </div>
+  </div>
+</body>
+</html>

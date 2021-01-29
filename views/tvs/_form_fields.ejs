@@ -1,0 +1,29 @@
+<div class="form-group">
+  <label for="title">Brand Name</label>
+  <input value="<%= tv.brandName %>" type="text" name="brandName" id="brandName" class="form-control">
+</div>
+<div class="form-group">
+  <label for="title">Model</label>
+  <input value="<%= tv.model %>" type="text" name="model" id="model" class="form-control">
+</div>
+<div class="form-group">
+  <label for="title">Inches</label>
+  <input value="<%= tv.inch %>" type="text" name="inch" id="inch" class="form-control">
+</div>
+<div class="form-group">
+  <label for="description">Description</label>
+  <textarea name="description" id="description" class="form-control"><%= tv.description %></textarea>
+</div>
+
+<div class="form-group">
+  <label for="status">Status</label>
+    <input value="<%= tv.status %>" list="statuses" name="status" id="status">
+    <datalist id="statuses">
+      <option value="Sprawny">
+      <option value="Uszkodzony">
+    </datalist>
+</div>
+
+
+<a href="/tvs" class="btn btn-secondary">Cancel</a>
+<button type="submit" class="btn btn-primary">Save</button>
