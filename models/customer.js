@@ -32,16 +32,4 @@ const customerSchema = new mongoose.Schema({
   }
 })
 
-/*customerSchema.pre('validate', function(next) {
-  if (this.firstName) {
-    this.slug = slugify(this.firstName, { lower: true, strict: true })
-  }
-
-  if (this.description) {
-    this.sanitizedHtml = dompurify.sanitize(marked(this.description))
-  }
-
-  next()
-})*/
-
 module.exports = mongoose.model('Customer', customerSchema)

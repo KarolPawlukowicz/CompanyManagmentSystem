@@ -21,12 +21,11 @@
 
 <div class="form-group">
   <label for="status">Status</label>
-    <input list="statuses" name="status" id="status"> <%= customer.status %>
-    <datalist id="statuses">
-      <option value="Przyjeto">
-      <option value="W realizacji">
-      <option value="Zrealizowano">
-    </datalist>
+    <select id="statuses" name="status">
+      <option value="Przyjeto">Przyjeto</option>
+      <option value="W realizacji">W realizacji</option>
+      <option value="Zrealizowano">Zrealizowano</option>
+    </select>
 </div>
 
 

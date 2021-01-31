@@ -4,31 +4,34 @@
 
 <body>
   <div class="container">
-    <h1 class="mb-4">Customers</h1>
+    <h1 class="mb-4">Customers:</h1>
     <a href="/customers/new" class="btn btn-success">New Customer</a>
-    <form action="/customers" method="GET">
-      <legend>Status</legend>
-      <input type="checkbox" name="status" value="Przyjeto">
-      <label for="Przyjeto">Przyjeto</label>
-  
-      <input type="checkbox" name="status" value="W realizacji">
-      <label for="W realizacji">W realizacji</label>
-  
-      <input type="checkbox" name="status" value="Zrealizowano">
-      <label for="Zrealizowano">Zrealizowano</label>
-
-      <legend>Date</legend>
-      <input type="radio" name="date" value="asc" >
-      <label for="ASC">ASC</label>
-
-      <input type="radio" name="date" value="desc">
-      <label for="DESC">DESC</label>
+    <div class="card-body">
+      <h2>Filters:</h2>
+      <form action="/customers" method="GET">
+        <legend>Status</legend>
+        <input type="checkbox" name="status" value="Przyjeto">
+        <label for="Przyjeto">Przyjeto</label>
     
-      <legend>Search:</legend>
-      <input type="text" name="search" placeholder="search">
+        <input type="checkbox" name="status" value="W realizacji">
+        <label for="W realizacji">W realizacji</label>
+    
+        <input type="checkbox" name="status" value="Zrealizowano">
+        <label for="Zrealizowano">Zrealizowano</label>
 
-      <button type="submit">Filter</button>
-    </form>
+        <legend>Date</legend>
+        <input type="radio" name="date" value="asc" >
+        <label for="ASC">ASC</label>
+
+        <input type="radio" name="date" value="desc">
+        <label for="DESC">DESC</label>
+      
+        <legend>Search:</legend>
+        <input type="text" name="search" placeholder="search">
+
+        <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+      </form>
+    </div>
 
     <!--
     <form action="/customers/sorted">
@@ -47,11 +50,12 @@
           <div class="card-subtitle text-muted mb-2">
             <%= "Date: " + customer.createdAt.toLocaleDateString(undefined, options) %>
           </div>
-          <h6 class="card-title"><%= "Phone Number: " + customer.phoneNumber %></h6>
+          <!-- <h6 class="card-title"><%= "Phone Number: " + customer.phoneNumber %></h6> -->
           <h6 class="card-title"><%= "Email: " + customer.email %></h6>
           <h6 class="card-title"><%= "Status: " + customer.status %></h6>
 
-          <div class="card-text mb-2"><%= customer.description %></div>
+          <!-- <div class="card-text mb-2"><%= "Description: " + customer.description %></div> -->
+
           <a href="/customers/<%= customer.id %>" class="btn btn-primary">Read More</a>
           <a href="/customers/edit/<%= customer.id %>" class="btn btn-info">Edit</a>
           <form action="/customers/<%= customer.id %>?_method=DELETE" method="POST" class="d-inline">

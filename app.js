@@ -1,9 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv');
-const config = require('./config/database');
-const Article = require('./models/article')
-const articleRouter = require('./routes/articles')
 const userRouter = require('./routes/users')
 const customerRouter = require('./routes/customers')
 const tvRouter = require('./routes/tvs')
@@ -41,7 +38,6 @@ app.get('/', async (req, res) => {
 
 // load routers
 app.use('/users', userRouter)
-app.use('/articles', articleRouter)
 app.use('/customers', customerRouter)
 app.use('/tvs', tvRouter)
 

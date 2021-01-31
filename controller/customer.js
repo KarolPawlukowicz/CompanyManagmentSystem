@@ -1,8 +1,6 @@
 var Customerdb = require('../models/customer');
 var nodemailer = require('nodemailer');
 
-const axios = require('axios')
-
 // RENDER
 // render new customer page
 exports.newCustomerRender = (req,res)=>{
@@ -29,15 +27,14 @@ exports.allCustomersRender = async (req,res)=>{
     let date = [req.query.date || "desc"].flat();
     let search = [req.query.search || ""].flat();
     let customers   
-    sendEmail() 
-    
+        
     if (search != '')
     {   
         let regex = new RegExp(search,'i');     
         if(status.length > 0){
-            customers = await Customerdb.find({ $and: [ { $or: [{firstName: regex },{lastName: regex}] }, {status: status} ] }).sort({ createdAt: date })     
+            customers = await Customerdb.find({ $and: [ { $or: [ {firstName: regex },{lastName: regex},{email: regex} ] }, {status: status} ] }).sort({ createdAt: date })     
         } else{
-            customers = await Customerdb.find({ $or: [{firstName: regex },{lastName: regex}] }).sort({ createdAt: date }) 
+            customers = await Customerdb.find({ $or: [ {firstName: regex },{lastName: regex},{email: regex} ] }).sort({ createdAt: date }) 
         }
     } else {
         if(status.length > 0){
@@ -45,7 +42,7 @@ exports.allCustomersRender = async (req,res)=>{
         } else{
             customers = await Customerdb.find({}).sort({ createdAt: date }) 
         }
-    }       
+    }
 
     res.render('customers/index', { customers: customers })
 }
@@ -54,41 +51,6 @@ exports.allCustomersRender = async (req,res)=>{
 
 ////////////////////////////////////////////////////////////////////////////////
 // CRUD
-
-function sendEmail() {
-    var smtpConfig = {
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false, // use SSL
-        auth: {
-            user: 'login@gmail.com',
-            pass: 'pass'
-        }
-    };
-
-    var mailOptions = {
-        from: 'pawlukowiczkarol97@gmail.com',
-        to: 'kpawlukowicz@onet.pl',
-        subject: 'Sending Email using Node.js',
-        text: 'That was easy!',
-        html: "<b>That was easy! </b>" 
-    };
-
-    var transporter = nodemailer.createTransport(smtpConfig);
-
-   /* transporter.verify((err, success) => {
-        if (err) console.error(err);
-        console.log('Your config is correct');
-    });*/
-
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-    });
-}
 
 // create and save new customer
 exports.create = (req,res)=>{
@@ -113,7 +75,7 @@ exports.create = (req,res)=>{
         .save(customer)
         .then(data => {
             //res.send(data)
-            sendEmail()
+            sendEmail(customer)
             res.redirect('/customers');
         })
         .catch(err =>{
@@ -138,8 +100,9 @@ exports.update = async (req, res)=>{
         .then(data => {
             if(!data){
                 res.status(404).send({ message : `Cannot Update user with ${id}. Maybe user not found!`})
-            }else{
-                res.send(data)
+            }else{                
+                sendEmail(req.body)
+                res.redirect('/customers');
             }
         })
         .catch(err =>{
@@ -158,9 +121,7 @@ exports.delete = async (req, res)=>{
             if(!data){
                 res.status(404).send({ message : `Cannot Delete with id ${id}. Maybe id is wrong`})
             }else{
-                res.send({
-                    message : "customer was deleted successfully!"
-                })
+                res.redirect('/customers');
             }
         })
         .catch(err =>{
@@ -168,4 +129,52 @@ exports.delete = async (req, res)=>{
                 message: "Could not delete customer with id=" + id
             });
         });
+}
+
+
+
+
+
+
+///////////////////////////////////////
+
+function sendEmail(customer) {
+    let subject = 'CompanyName: Changed your status to: ' + customer.status
+    let body = 'Good morning ' + customer.firstName + " " + customer.lastName + ' your status is: ' + customer.status + '. INFO ABOUT COMPANY'
+    let htmlBody = '<b>' + body + '</b>'
+
+    console.log(body)
+
+    var smtpConfig = {
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false, // use SSL
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        }
+    };
+
+    var mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: customer.email,
+        subject: subject,
+        text: body,
+        html: htmlBody 
+    };
+
+    var transporter = nodemailer.createTransport(smtpConfig);
+
+   /* transporter.verify((err, success) => {
+        if (err) console.error(err);
+        console.log('Your config is correct');
+    });*/
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+    });
 }

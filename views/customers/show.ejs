@@ -4,10 +4,18 @@
 
 <body>
   <div class="container">
-    <h1 class="mb-1"><%= customer.firstName %></h1>
-    <div class="text-muted mb-2">
-      <%= customer.createdAt.toLocaleDateString() %>
+    <h1 class="mb-4">Customer:</h1>
+    <h4 class="card-title"><%= customer.firstName + " " + customer.lastName %></h4>
+    <div class="card-subtitle text-muted mb-2">
+      <% const options = {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} %>
+      <%= "Date: " + customer.createdAt.toLocaleDateString(undefined, options) %>
     </div>
+    <h6 class="card-title"><%= "Phone Number: " + customer.phoneNumber %></h6>
+    <h6 class="card-title"><%= "Email: " + customer.email %></h6>
+    <h6 class="card-title"><%= "Status: " + customer.status %></h6>
+
+    <div class="card-text mb-2"><%= "Description: " + customer.description %></div>
+
     <a href="/customers" class="btn btn-secondary">All customers</a>
     <a href="/customers/edit/<%= customer.id %>" class="btn btn-info">Edit</a>
 

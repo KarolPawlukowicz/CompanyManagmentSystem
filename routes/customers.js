@@ -6,15 +6,9 @@ const controller = require('../controller/customer');
 const axios = require('axios')
 
 // GETs
-//router.get('/:status', controller.allCustomersRender);
-
-
-//router.get('/sorted', controller.sortedCustomersRender);
 router.get('/new', controller.newCustomerRender);
 router.get('/edit/:id', controller.editByIdCustomerRender);
 router.get('/:id', controller.readMoreByIdCustomerRender);
-
-
 router.get('/', controller.allCustomersRender);
 
 
