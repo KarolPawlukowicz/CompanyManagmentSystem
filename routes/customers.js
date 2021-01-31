@@ -1,9 +1,6 @@
 const express = require('express');
-const Customer = require('../models/customer');
 const router = express.Router();
 const controller = require('../controller/customer');
-
-const axios = require('axios')
 
 // GETs
 router.get('/new', controller.newCustomerRender);

@@ -10,6 +10,7 @@ exports.newCustomerRender = (req,res)=>{
 // render edit customer by id page
 exports.editByIdCustomerRender = async (req,res)=>{
     const customer = await Customerdb.findById(req.params.id)
+    if (customer == null) res.redirect('/customers')
     res.render('customers/edit', { customer: customer })
 }
 
