@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const userRouter = require('./routes/users')
 const customerRouter = require('./routes/customers')
 const tvRouter = require('./routes/tvs')
+const partRouter = require('./routes/parts')
 const path = require('path');
 const methodOverride = require('method-override')
 const app = express() 
@@ -40,6 +41,7 @@ app.get('/', async (req, res) => {
 app.use('/users', userRouter)
 app.use('/customers', customerRouter)
 app.use('/tvs', tvRouter)
+app.use('/parts', partRouter)
 
 
 // Start the server

@@ -1,0 +1,22 @@
+<!-- include header -->
+<%- include('../include/_header') %>
+<!-- /include header -->
+
+<body>
+  <div class="container">
+    <h1 class="mb-4">TV:</h1>
+    <h4 class="card-title"><%= tv.brandName + " " + tv.model + " " + tv.inch %></h4>
+    <div class="card-subtitle text-muted mb-2">
+      <% const options = {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} %>
+
+      <%= tv.createdAt.toLocaleDateString(undefined, options) %>
+    </div>
+    <h6 class="card-title"><%= "Status: " + tv.status %></h6> 
+
+    <div class="card-text mb-2"><%= tv.description %></div>
+
+    <a href="/tvs" class="btn btn-secondary">All TVs</a>
+    <a href="/tvs/edit/<%= tv.id %>" class="btn btn-info">Edit</a>
+  </div>
+</body>
+</html>

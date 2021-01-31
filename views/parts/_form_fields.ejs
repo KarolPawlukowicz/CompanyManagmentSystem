@@ -1,0 +1,11 @@
+<div class="form-group">
+  <label for="title">Name</label>
+  <input value="<%= part.name %>" type="text" name="name" id="name" class="form-control">
+</div>
+<div class="form-group">
+  <label for="description">Description</label>
+  <textarea name="description" id="description" class="form-control"><%= part.description %></textarea>
+</div>
+
+<a href="/parts" class="btn btn-secondary">Cancel</a>
+<button type="submit" class="btn btn-primary">Save</button>

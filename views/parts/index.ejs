@@ -4,19 +4,12 @@
 
 <body>
   <div class="container">
-    <h1 class="mb-4">All TVs</h1>
-    <a href="/tvs/new" class="btn btn-success">New TV</a>
+    <h1 class="mb-4">All Parts</h1>
+    <a href="/parts/new" class="btn btn-success">New Part</a>
 
     <div class="card-body">
       <h2>Filters:</h2>
-      <form action="/tvs" method="GET">
-        <legend>Status</legend>
-        <input type="checkbox" name="status" value="Sprawny">
-        <label for="Sprawny">Sprawny</label>
-    
-        <input type="checkbox" name="status" value="Uszkodzony">
-        <label for="Uszkodzony">Uszkodzony</label>
-
+      <form action="/parts" method="GET">
         <legend>Date</legend>
         <input type="radio" name="date" value="asc" >
         <label for="ASC">ASC</label>
@@ -34,20 +27,18 @@
 
     <% const options = {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} %>
 
-    <% tvs.forEach(tv => { %>
+    <% parts.forEach(part => { %>
       <div class="card mt-4">
         <div class="card-body">
-          <h4 class="card-title"><%= tv.brandName + " " + tv.model + " " + tv.inch %></h4>
+          <h4 class="card-title"><%= part.name %></h4>
           <div class="card-subtitle text-muted mb-2">
-            <%= tv.createdAt.toLocaleDateString(undefined, options) %>
+            <%= part.createdAt.toLocaleDateString(undefined, options) %>
           </div>
-          <h6 class="card-title"><%= "Status: " + tv.status %></h6> 
+          <div class="card-text mb-2"><%= part.description %></div>
 
-          <!-- <div class="card-text mb-2"><%= tv.description %></div> -->
-
-          <a href="/tvs/<%= tv.id %>" class="btn btn-primary">Read More</a>
-          <a href="/tvs/edit/<%= tv.id %>" class="btn btn-info">Edit</a>
-          <form action="/tvs/<%= tv.id %>?_method=DELETE" method="POST" class="d-inline">
+          <a href="/parts/<%= part.id %>" class="btn btn-primary">Read More</a>
+          <a href="/parts/edit/<%= part.id %>" class="btn btn-info">Edit</a>
+          <form action="/parts/<%= part.id %>?_method=DELETE" method="POST" class="d-inline">
             <button type="submit" class="btn btn-danger">Delete</button>
           </form>
         </div>

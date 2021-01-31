@@ -1,0 +1,19 @@
+<!-- include header -->
+<%- include('../include/_header') %>
+<!-- /include header -->
+
+<body>
+  <div class="container">
+    <h1 class="mb-4">Part:</h1>
+    <h4 class="card-title"><%= part.name %></h4>
+    <div class="card-subtitle text-muted mb-2">
+      <% const options = {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'} %>
+      <%= part.createdAt.toLocaleDateString(undefined, options) %>
+    </div>
+    <div class="card-text mb-2"><%= part.description %></div>
+
+    <a href="/parts" class="btn btn-secondary">All Parts</a>
+    <a href="/parts/edit/<%= part.id %>" class="btn btn-info">Edit</a>
+  </div>
+</body>
+</html>

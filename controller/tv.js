@@ -22,28 +22,26 @@ exports.readMoreByIdTvRender = async (req,res)=>{
 
 // render all Tvs Tv page
 exports.allTvsRender = async (req,res)=>{
-   /* let status = [req.query.status || []].flat();
+    let status = [req.query.status || []].flat();
     let date = [req.query.date || "desc"].flat();
     let search = [req.query.search || ""].flat();
-    let customers   
+    let tvs   
         
     if (search != '')
     {   
-        let regex = new RegExp(search,'i');     
+        let regex = new RegExp(search,'i');       
         if(status.length > 0){
-            customers = await Customerdb.find({ $and: [ { $or: [ {firstName: regex },{lastName: regex},{email: regex} ] }, {status: status} ] }).sort({ createdAt: date })     
+            tvs = await TVdb.find({ $and: [ { $or: [ {brandName: regex },{model: regex} ] }, {status: status} ] }).sort({ createdAt: date })     
         } else{
-            customers = await Customerdb.find({ $or: [ {firstName: regex },{lastName: regex},{email: regex} ] }).sort({ createdAt: date }) 
+            tvs = await TVdb.find({ $or: [ {brandName: regex },{model: regex} ] }).sort({ createdAt: date }) 
         }
     } else {
         if(status.length > 0){
-            customers = await Customerdb.find({ status: status }).sort({ createdAt: date }) 
+            tvs = await TVdb.find({ status: status }).sort({ createdAt: date }) 
         } else{
-            customers = await Customerdb.find({}).sort({ createdAt: date }) 
+            tvs = await TVdb.find({}).sort({ createdAt: date }) 
         }
-    }*/
-
-    tvs = await TVdb.find({}).sort({ createdAt: date }) 
+    }
 
     res.render('tvs/index', { tvs: tvs })
 }
@@ -60,7 +58,7 @@ exports.allTvsRender = async (req,res)=>{
 ////////////////////////////////////////////////////////////////////////////////
 // CRUD
 
-// create and save new customer
+// create and save new tv
 exports.create = (req,res)=>{
     // validate request
     if(!req.body){
@@ -77,7 +75,7 @@ exports.create = (req,res)=>{
         description : req.body.description
     })
 
-    // save customer in the database
+    // save tv in the database
     tv
         .save(tv)
         .then(data => {
@@ -92,7 +90,7 @@ exports.create = (req,res)=>{
 
 
 
-// Update customer by customer id
+// Update tv by tv id
 exports.update = async (req, res)=>{
     if(!req.body){
         return res
@@ -115,7 +113,7 @@ exports.update = async (req, res)=>{
 }
 
 
-// Delete a customer with specified id 
+// Delete a tv with specified id 
 exports.delete = async (req, res)=>{
     const id = req.params.id;
 
@@ -129,7 +127,7 @@ exports.delete = async (req, res)=>{
         })
         .catch(err =>{
             res.status(500).send({
-                message: "Could not delete customer with id=" + id
+                message: "Could not delete tv with id=" + id
             });
         });
 }
