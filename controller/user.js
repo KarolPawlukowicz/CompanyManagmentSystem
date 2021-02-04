@@ -4,6 +4,13 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const jwtCode = 'kodSzyfrujacy123'
 
+require("node-localstorage")
+
+if(typeof localStorage === "undefined" || localStorage === null){
+    var LocalStorage = require("node-localstorage").LocalStorage
+    localStorage = new LocalStorage('./scratch')
+}
+
 // RENDER
 // render new customer page
 exports.registerRender = (req,res)=>{
@@ -31,14 +38,11 @@ exports.login = async (req,res)=>{
                     }
                     if(result){
                         let token = jwt.sign( {email : user.email}, jwtCode, { expiresIn : '1h' } )
-                        //send the access token to the client inside a cookie
-                       // res.headers("jwt", token, {secure: true, httpOnly: true})
-                        res.header('Authorization' , token, {secure: true, httpOnly: true} ); 
-                        res.render('index', { })
+                        localStorage.setItem('Authorization' , token)
+                       // console.log(localStorage.getItem('Authorization'))
+                        res.render('index', {  })
                     } else{
-                        res.json({
-                            message: "zle haslo"
-                        })
+                        res.render('index', {  })
                     }
                 })
             } else{
@@ -51,11 +55,8 @@ exports.login = async (req,res)=>{
 
 
 
-////////////////////////////////////////////////////////////////////////////////
-// CRUD
-
 // create and save new user
-exports.create = (req,res)=>{
+exports.register = (req,res)=>{
     // validate request
     if(!req.body){
         res.status(400).send({ message : "Content can not be emtpy!"});
@@ -83,7 +84,12 @@ exports.create = (req,res)=>{
         res.status(500).send({
             message : err.message || "Some error occurred while creating a create operation"
             });
-        });
-    
+        });    
 };
+
+
+exports.logout = (req,res)=>{
+    localStorage.setItem('Authorization' , 'siema')
+    res.render('index', {  })
+}
 

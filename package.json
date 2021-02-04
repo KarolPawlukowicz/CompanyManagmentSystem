@@ -29,6 +29,7 @@
     "marked": "^1.2.7",
     "moment": "^2.29.1",
     "mongoose": "^5.11.12",
+    "node-localstorage": "^2.1.6",
     "nodemailer": "^6.4.17",
     "slugify": "^1.4.6"
   },

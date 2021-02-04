@@ -1,6 +1,8 @@
 var Customerdb = require('../models/customer');
 var nodemailer = require('nodemailer');
 
+var authenticate = require('../middleware/authenticate');
+
 
 // RENDER
 // render new customer page
@@ -45,6 +47,7 @@ exports.allCustomersRender = async (req,res)=>{
             customers = await Customerdb.find({}).sort({ createdAt: date }) 
         }
     }
+
 
     res.render('customers/index', { customers: customers })
 }
@@ -139,6 +142,10 @@ exports.delete = async (req, res)=>{
 
 
 ///////////////////////////////////////
+
+function isLoggedIn(){
+    return true;
+}
 
 function sendEmail(customer) {
     let subject = 'CompanyName: Changed your status to: ' + customer.status

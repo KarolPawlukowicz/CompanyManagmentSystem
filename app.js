@@ -9,6 +9,9 @@ const path = require('path');
 const methodOverride = require('method-override')
 const app = express() 
 
+
+var authenticate = require('./middleware/authenticate');
+
 dotenv.config( { path : 'config.env'} )
 const PORT = process.env.PORT || 8080
 
@@ -33,7 +36,7 @@ app.use(methodOverride('_method'))
 app.get('/', async (req, res) => {
  // const articles = await Article.find().sort({ createdAt: 'desc' })
  // res.render('articles/index', { articles: articles })
-    res.render('index')
+    res.render('', {  })
 })
 
 

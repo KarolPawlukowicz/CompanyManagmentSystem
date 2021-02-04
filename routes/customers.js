@@ -5,20 +5,18 @@ const controller = require('../controller/customer');
 var authenticate = require('../middleware/authenticate');
 
 // GETs
-router.get('/new', controller.newCustomerRender);
-router.get('/edit/:id', controller.editByIdCustomerRender);
-router.get('/:id', controller.readMoreByIdCustomerRender);
+router.get('/new',authenticate, controller.newCustomerRender);
+router.get('/edit/:id',authenticate, controller.editByIdCustomerRender);
+router.get('/:id',authenticate, controller.readMoreByIdCustomerRender);
 router.get('/',authenticate, controller.allCustomersRender);
 
 
 
-
-
 // POST
-router.post('/', controller.create);
+router.post('/',authenticate, controller.create);
 // PUT
-router.put('/:id', controller.update);
+router.put('/:id',authenticate, controller.update);
 // DELETE
-router.delete('/:id', controller.delete);
+router.delete('/:id',authenticate, controller.delete);
 
 module.exports = router
