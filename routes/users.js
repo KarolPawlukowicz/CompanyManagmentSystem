@@ -1,40 +1,49 @@
 const express = require('express')
-const User = require('../models/user')
+const Userdb = require('../models/user')
 const router = express.Router()
-
-router.get('/add-user', (req, res) => {
-    res.render('users/add_user', { user: new User() })
-})
-
-router.get('/', async (req, res) => {
-    const users = await User.find()
-    res.render('users/index', { users: users })
-})
+//const auth = require("../middleware/auth");
+const controller = require('../controller/user');
 
 
-router.post('/', async (req, res, next) => {
-    req.user = new User()
-    next()
-}, saveUserAndRedirect(''))
+// GETs
+router.get('/new', controller.registerRender);
+router.get('/login', controller.loginRender);
 
-function saveUserAndRedirect(path) {
-    return async (req, res) => {
-      let user = req.client
-      user.name = req.body.name
-      user.email = req.body.email
-      user.gender = req.body.gender
-      user.status = req.body.status
-      try {
-        user = await user.save()
-        console.log('udalo sie ');
-        res.redirect(`/`)
-      } catch (e) {
-        console.log('nie udalo sie ' + e);
-       // res.render(`users/${path}`, { user: user })
-        const users = await User.find()
-        res.render('users/index', { users: users })
-      }
+// POST
+router.post('/', controller.create);
+router.post('/login', controller.login);
+
+
+/*router.post("/register", (req, res) => {
+
+  bcrypt.hash(req.body.password, 10, function(err, passwordHash){
+    if(err){
+      res.json({
+        error: "blad funkcji hashujacej"
+      })
     }
-  }
+  });
+
+  // new user
+  const user = new Userdb({
+    email : req.body.email,    
+    password : passwordHash,
+    firstName : req.body.firstName,
+    lastName : req.body.lastName,
+    role : req.body.role
+})
+
+  user
+    .save()
+    .then(data => {
+      res.redirect('/customers');
+    })
+    .catch(err =>{
+      res.status(500).send({
+          message : err.message || "Some error occurred while creating a create operation"
+        });
+    });
+
+});*/
 
  module.exports = router

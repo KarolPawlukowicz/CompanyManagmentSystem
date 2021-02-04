@@ -1,6 +1,7 @@
 var Customerdb = require('../models/customer');
 var nodemailer = require('nodemailer');
 
+
 // RENDER
 // render new customer page
 exports.newCustomerRender = (req,res)=>{
