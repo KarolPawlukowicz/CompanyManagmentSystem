@@ -2,7 +2,6 @@ var Userdb = require('../models/user');
 
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
-const jwtCode = 'kodSzyfrujacy123'
 
 require("node-localstorage")
 
@@ -37,7 +36,7 @@ exports.login = async (req,res)=>{
                         })
                     }
                     if(result){
-                        let token = jwt.sign( {email : user.email}, jwtCode, { expiresIn : '1h' } )
+                        let token = jwt.sign( {email : user.email}, process.env.JWT_CODE, { expiresIn : '1h' } )
                         localStorage.setItem('Authorization' , token)
                        // console.log(localStorage.getItem('Authorization'))
                         res.render('index', {  })

@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken")
-const jwtCode = 'kodSzyfrujacy123'
 
 require("node-localstorage")
 
@@ -14,7 +13,7 @@ const authenticate = (req, res, next) => {
     try{ 
        // console.log(localStorage.getItem('Authorization'))   
         const token = localStorage.getItem('Authorization')
-        const decode = jwt.verify(token, jwtCode)
+        const decode = jwt.verify(token, process.env.JWT_CODE)
        // console.log(decode)
 
         req.user = decode
