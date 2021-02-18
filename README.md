@@ -1,4 +1,4 @@
-# companyManagmentSystem
+# Company Managment System
 This is a simple application which helps managing company. You can login, logout, register. 
 
 Logged user can add, delete, edit and read more info about customers, tvs and parts. You can also search and filter by status and date customers, tvs and parts. When you add or edit customer it will send an email to customer with infomations about changes.
