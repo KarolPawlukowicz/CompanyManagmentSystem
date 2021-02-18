@@ -1,8 +1,6 @@
 var Customerdb = require('../models/customer');
 var nodemailer = require('nodemailer');
 
-var authenticate = require('../middleware/authenticate');
-
 
 // RENDER
 // render new customer page
@@ -142,10 +140,6 @@ exports.delete = async (req, res)=>{
 
 
 ///////////////////////////////////////
-
-function isLoggedIn(){
-    return true;
-}
 
 function sendEmail(customer) {
     let subject = 'CompanyName: Changed your status to: ' + customer.status
